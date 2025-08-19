@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpareHub</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <script src="script.js"></script>
+</head>
+<body>
+    <div class="navbar">
+        <div class="brand">SpareHub</div>
+        <div class="links">
+            <ul>
+                <li><a href=".\Homepage.html">Home</a></li>
+                <li><a href=".\about.html">About</a></li>
+                <li><a href=".\Login.html" class="sign">Sign In</a></li>
+            </ul>
+        </div>
+    </div>
+    <section class="main">
+        <div class="content">
+            <h1>SpareHub</h1>
+            <h3>Find Quality Spare Parts</h3>
+            <form id="searchForm">
+                <select id="brand" name="brand">
+                    <option value="">Select Brand</option>
+                    <option value="Volkswagen">Volkswagen</option>
+                    <option value="Honda">Honda</option>
+                    <option value="Maruti">Maruti</option>
+                </select>
+                <select id="model" name="model">
+                    <option value="">Select Model</option>
+                    <option value="Model1">Model1</option>
+                    <option value="Model2">Model2</option>
+                </select>
+                <select id="year" name="year">
+                    <option value="">Select Year</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                </select>
+                <button type="button" onclick="searchParts()" name="searchButton1">Search</button>
+                <button type="button" onclick="searchAllParts()" name="searchButton2">Search All Parts</button>
+            </form>
+            <p>Search for spare parts for brands like Volkswagen, Honda, and Maruti. All parts include OEM numbers for authenticity.</p>
+        </div>
+    </section>
+</body>
+</html>

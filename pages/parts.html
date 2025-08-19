@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spare Parts - SpareHub</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: rgb(250, 250, 250);
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: black;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        .brand {
+            font-size: 38px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ff4d4d, #ff7878, #ffa500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+        }
+        .links ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+        .links a {
+            text-decoration: none;
+            color: #ffa500;
+            font-size: 22px;
+            padding: 8px 14px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        .links a:hover, .links .sign {
+            color: rgb(255, 255, 255);
+            background: linear-gradient(135deg, #ff4d4d, #ff7878, #ffa500);
+        }
+        .parts-container {
+            padding: 50px;
+            text-align: center;
+        }
+        .parts-container h2 {
+            font-size: 2em;
+            color: #222;
+            margin-bottom: 1.5rem;
+        }
+        .parts-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .part-item {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 200px;
+        }
+        .part-item h3 {
+            font-size: 1.4em;
+            color: #444;
+            margin-bottom: 0.5rem;
+        }
+        .part-item p {
+            color: #333;
+            font-size: 1em;
+        }
+        .back-btn {
+            margin-left: auto;
+            margin-right: auto;
+            width: 20%;
+            left: 38%;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            padding: 10px;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            background: linear-gradient(135deg, #ff4d4d, #ff7878, #ffa500);
+            color:white;
+        }
+    </style>
+    <script>
+        const partsData = {
+            Volkswagen: {
+                Model1: {
+                    2022: [
+                        { name: "Air Filter", oem: "VW-AF-2023-001" },
+                        { name: "Brake Pads", oem: "VW-BP-2023-002" },
+                        { name: "Spark Plug", oem: "VW-SP-2023-003" }   
+                    ],
+                    2023: [
+                        { name: "Air Filter", oem: "VW-AF-2023-001" },
+                        { name: "Brake Pads", oem: "VW-BP-2023-002" },
+                        { name: "Spark Plug", oem: "VW-SP-2023-003" }
+                    ],
+                    2024: [
+                        { name: "Air Filter", oem: "VW-AF-2024-001" },
+                        { name: "Brake Disc", oem: "VW-BD-2024-002" },
+                        { name: "Oil Filter", oem: "VW-OF-2024-003" }
+                    ]
+                },
+                Model2: {
+                    2022: [
+                        { name: "Fuel Filter", oem: "VW-FF-2022-001" },
+                        { name: "Brake Pads", oem: "VW-BP-2022-002" },
+                        { name: "Wiper Blades", oem: "VW-WB-2022-003" }
+                    ],
+                    2023: [
+                        { name: "Fuel Filter", oem: "VW-FF-2023-001" },
+                        { name: "Brake Pads", oem: "VW-BP-2023-002" },
+                        { name: "Battery", oem: "VW-BT-2023-003" }
+                    ],
+                    2024: [
+                        { name: "Fuel Filter", oem: "VW-FF-2024-001" },
+                        { name: "Brake Disc", oem: "VW-BD-2024-002" },
+                        { name: "Wiper Blades", oem: "VW-WB-2024-003" }
+                    ]
+                }
+            },
+            Honda: {
+                Model1: {
+                    2022: [
+                        { name: "Air Filter", oem: "HN-AF-2022-001" },
+                        { name: "Brake Pads", oem: "HN-BP-2022-002" },
+                        { name: "Oil Filter", oem: "HN-OF-2022-003" }
+                    ],
+                    2023: [
+                        { name: "Air Filter", oem: "HN-AF-2023-001" },
+                        { name: "Brake Pads", oem: "HN-BP-2023-002" },
+                        { name: "Spark Plug", oem: "HN-SP-2023-003" }
+                    ],
+                  
+                },
+                Model2: {
+                    2022: [
+                        { name: "Fuel Filter", oem: "HN-FF-2022-001" },
+                        { name: "Brake Pads", oem: "HN-BP-2022-002" },
+                        { name: "Wiper Blades", oem: "HN-WB-2022-003" }
+                    ],
+                    2023: [
+                        { name: "Fuel Filter", oem: "HN-FF-2023-001" },
+                        { name: "Brake Pads", oem: "HN-BP-2023-002" },
+                        { name: "Battery", oem: "HN-BT-2023-003" }
+                    ],
+                    2024: [
+                        { name: "Fuel Filter", oem: "HN-FF-2024-001" },
+                        { name: "Brake Disc", oem: "HN-BD-2024-002" },
+                        { name: "Wiper Blades", oem: "HN-WB-2024-003" }
+                    ]
+                }
+            },
+            Maruti: {
+                Model1: {
+                    2022: [
+                        { name: "Air Filter", oem: "MR-AF-2022-001" },
+                        { name: "Brake Pads", oem: "MR-BP-2022-002" },
+                        { name: "Oil Filter", oem: "MR-OF-2022-003" }
+                    ],
+                    2023: [
+                        { name: "Air Filter", oem: "MR-AF-2023-001" },
+                        { name: "Brake Pads", oem: "MR-BP-2023-002" },
+                        { name: "Spark Plug", oem: "MR-SP-2023-003" }
+                    ],
+                    2024: [
+                        { name: "Air Filter", oem: "MR-AF-2024-001" },
+                        { name: "Brake Disc", oem: "MR-BD-2024-002" },
+                        { name: "Oil Filter", oem: "MR-OF-2024-003" }
+                    ]
+                },
+                Model2: {
+                    2022: [
+                        { name: "Fuel Filter", oem: "MR-FF-2022-001" },
+                        { name: "Brake Pads", oem: "MR-BP-2022-002" },
+                        { name: "Wiper Blades", oem: "MR-WB-2022-003" }
+                    ],
+                    2023: [
+                        { name: "Fuel Filter", oem: "MR-FF-2023-001" },
+                        { name: "Brake Pads", oem: "MR-BP-2023-002" },
+                        { name: "Battery", oem: "MR-BT-2023-003" }
+                    ],
+                    2024: [
+                        { name: "Fuel Filter", oem: "MR-FF-2024-001" },
+                        { name: "Brake Disc", oem: "MR-BD-2024-002" },
+                        { name: "Wiper Blades", oem: "MR-WB-2024-003" }
+                    ]
+                }
+            }
+        };
+
+        window.onload = function() {
+            const params = new URLSearchParams(window.location.search);
+            const brand = params.get('brand');
+            const model = params.get('model');
+            const year = params.get('year');
+            const partsList = document.getElementById('partsList');
+
+            if (brand && model && year && partsData[brand] && partsData[brand][model] && partsData[brand][model][year]) {
+                document.getElementById('searchInfo').textContent = `Parts for ${brand} ${model} (${year})`;
+                const parts = partsData[brand][model][year];
+                parts.forEach(part => {
+                    const partDiv = document.createElement('div');
+                    partDiv.className = 'part-item';
+                    partDiv.innerHTML = `<h3>${part.name}</h3><p>OEM: ${part.oem}</p>`;
+                    partsList.appendChild(partDiv);
+                });
+            } else {
+                partsList.innerHTML = '<p>No parts found for the selected criteria.</p>';
+            }
+        };
+    </script>
+</head>
+<body>
+    <section class="parts-container">
+        <div class="back-btn" onclick="window.history.back()">← Back to Search</div>
+        <h2 id="searchInfo">Available Parts</h2>
+        <div class="parts-list" id="partsList"></div>
+    </section>
+</body>
+</html>
