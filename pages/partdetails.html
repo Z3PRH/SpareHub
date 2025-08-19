@@ -4,6 +4,26 @@
     <meta charset="UTF-8">
     <title>SpareHub</title>
     <link rel="stylesheet" href="../styles/partdetails.css">
+    <style>
+        /* Add a bit of style for the new button */
+        .buy-now-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin-top: 20px;
+            text-decoration: none;
+        }
+        .buy-now-btn:hover {
+            background-color: #218838;
+        }
+    </style>
 </head>
 <body>
     <div class="part-details-container">
@@ -17,7 +37,9 @@
             <p>Year: <span id="part-year"></span></p>
             <p>Condition: <span id="part-condition"></span></p>
             <p>Availability: <span id="part-availability"></span></p>
+            <a href="../pages/payment.html" class="buy-now-btn">Buy Now</a>
             <p>Description: <span id="part-description"></span></p>
+           
         </div>
         <div class="rating-section">
             <h2>Customer Rating</h2>
@@ -26,7 +48,6 @@
         <div class="reviews-section">
             <h2>Customer Reviews</h2>
             <div id="part-reviews">
-                <!-- Static review data -->
                 <div>
                     <p>John D. <span class="review-rating">★★★★★</span></p>
                     <p class="review-text">Great part, works perfectly in my car. Fast shipping too!</p>
