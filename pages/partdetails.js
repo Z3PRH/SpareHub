@@ -96,3 +96,11 @@ function submitReview(event) {
 // Call the function when the page loads
 document.addEventListener('DOMContentLoaded', fetchPartDetails);
 
+function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+    var el = document.getElementById('cart-count');
+    if (el) el.textContent = count;
+}
+updateCartCount();
+

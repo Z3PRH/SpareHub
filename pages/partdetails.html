@@ -3,30 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>SpareHub</title>
-    <link rel="stylesheet" href="../styles/partdetails.css ">
-    <style>
-        /* Add a bit of style for the new button */
-        .buy-now-btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            background-color: #28a745;
-            color: white;
-            text-align: center;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.2em;
-            cursor: pointer;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            text-decoration: none;
-        }
-        .buy-now-btn:hover {
-            background-color: #218838;
-        }
-    </style>
+    <link rel="stylesheet" href="../styles/partdetail.css ">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="navbar">
+        <div class="brand">SpareHub</div>
+        <div class="links">
+            <ul>
+                <li><a href="../pages/Homepage.html">Home</a></li>
+                <li><a href="../pages/about.html">About</a></li>
+                <li><a href="../pages/Login.html" class="sign">Sign In</a></li>
+                <li>
+                    <a href="cart.html" class="cart-icon-link" title="View Cart">
+                        <span class="cart-icon">
+                            🛒
+                            <span id="cart-count" class="cart-count">0</span>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
     <div class="part-details-container">
         <a href="../pages/results.html" class="back-link">← Back to Search</a>
         <h1 id="part-name">Part Name</h1>
@@ -39,6 +37,7 @@
             <p>Condition: <span id="part-condition"></span></p>
             <p>Availability: <span id="part-availability"></span></p>
             <a href="../pages/payment.html" class="buy-now-btn">Buy Now</a>
+            <a href="#" class="add-to-cart-btn">Add to Cart</a>
             <p>Description: <span id="part-description"></span></p>
            
         </div>
@@ -121,5 +120,41 @@
         <footer>© 2025 AutoParts. All rights reserved.</footer>
     </div>
     <script src="partdetails.js"></script>
+    <script>
+document.querySelector('.add-to-cart-btn').addEventListener('click', function(e) {
+    e.preventDefault();
+
+    // Example: get part details from the page (update selectors as needed)
+    const part = {
+        id: new URLSearchParams(window.location.search).get('id') || '1',
+        name: document.getElementById('part-name').textContent,
+        price: document.getElementById('part-price').textContent,
+        image: document.getElementById('part-image').src,
+        quantity: 1
+    };
+
+    // Get existing cart or create new
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Check if part already in cart
+    const existing = cart.find(item => item.id === part.id);
+    if (existing) {
+        existing.quantity += 1;
+    } else {
+        cart.push(part);
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert('Added to cart!');
+});
+
+function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+        var el = document.getElementById('cart-count');
+        if (el) el.textContent = count;
+    }
+    updateCartCount();
+    </script>
 </body>
 </html>

@@ -4,21 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SpareHub - Working Filters</title>
-    <link rel="stylesheet" href="../styles/results.css">
+    <link rel="stylesheet" href="../styles/result.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <div class="results-container">
-        <header class="results-header">
-            <div class="header-content">
-                <h1 class="brand">SpareHub</h1>
-                <span class="search-info" id="searchInfo">5 Search Results</span>
-                <div class="header-actions">
-                    <button class="back-btn" onclick="window.location.href='./Homepage.html'">← Back to Search</button>
-                    <button class="filter-btn" onclick="toggleFilters()">Hide Filters</button>
-                </div>
+        <div class="navbar">
+            <div class="brand">SpareHub</div>
+            <div class="links">
+                <ul>
+                    <li><a href="../pages/Homepage.html">Home</a></li>
+                    <li><a href="../pages/about.html">About</a></li>
+                    <li>
+                        <button class="filter-btn" onclick="toggleFilters()" id="navbarFilterBtn">
+                            Hide Filters
+                        </button>
+                    </li>
+                    <li><a href="../pages/Login.html" class="sign">Sign In</a></li>
+                    <li>
+                        <a href="cart.html" class="cart-icon-link" title="View Cart">
+                            <span class="cart-icon">
+                                🛒
+                                <span id="cart-count" class="cart-count">0</span>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
             </div>
-        </header>
+        </div>
 
         <main class="results-main">
             <section class="filters-sidebar" id="filtersSidebar">
@@ -159,7 +173,7 @@
         function toggleFilters() {
             const sidebar = document.getElementById('filtersSidebar');
             const main = document.querySelector('.results-main');
-            const btn = document.querySelector('.filter-btn');
+            const btn = document.getElementById('navbarFilterBtn');
 
             sidebar.classList.toggle('hidden');
             main.classList.toggle('no-filters');
@@ -244,6 +258,14 @@
 
             updateCount(5);
         }
+
+            function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            var el = document.getElementById('cart-count');
+            if (el) el.textContent = count;
+        }
+        updateCartCount();
     </script>
 </body>
 

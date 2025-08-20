@@ -1,5 +1,4 @@
-
-        * {
+* {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -17,60 +16,70 @@
             background: #f5f7fa;
         }
 
-        .results-header {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-            color: white;
-            padding: 20px 0;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+        .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background: black;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
 
-        .header-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
+.brand {
+    font-size: 38px;
+    font-weight: bold;
+    background: linear-gradient(135deg, #ff4d4d, #ff7878, #ffa500);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
+}
 
-        .brand {
-            font-size: 28px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #ff4d4d, #ff7878, #ffa500);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+.links ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    align-items: flex-end; /* Add this line to vertically align items to the bottom */
+    height: 100%;          /* Ensure the ul takes full height of navbar */
+}
 
-        .search-info {
-            font-size: 18px;
-            color: #e0e0e0;
-            font-weight: 500;
-        }
+.links li {
+    display: flex;
+    align-items: flex-end; /* Add this line to align li contents to the bottom */
+    height: 100%;
+}
 
-        .header-actions {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
+.links a {
+    text-decoration: none;
+    color: #ffa500;
+    font-size: 22px;
+    padding: 8px 14px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
 
-        .back-btn, .filter-btn {
-            padding: 10px 20px;
-            background: linear-gradient(135deg, #ff4d4d, #ff7878, #ffa500);
+.links a:hover, .links .sign {
+    color: rgb(255, 255, 255);
+    background: linear-gradient(135deg, #ff4d4d, #ff7878, #ffa500);
+}
+
+.filter-btn {
+            background:  linear-gradient(135deg, #ff4d4d, #ff7878, #ffa500);
             color: #ffffff;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s ease;
+            font-size: 22px;
+            padding: 8px 14px;
+            border-radius: 5px;
             border: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-family: inherit;
         }
 
-        .back-btn:hover, .filter-btn:hover {
+        .filter-btn:hover {
             background: linear-gradient(135deg, #4d50ff, #78c9ff, #00ff88);
             color: rgb(0, 0, 0);
             transform: translateY(-2px);
@@ -288,6 +297,8 @@
             padding: 20px;
             font-size: 14px;
         }
+
+        
 
         @media (max-width: 1024px) {
             .results-main {
