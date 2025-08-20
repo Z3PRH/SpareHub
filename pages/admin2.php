@@ -8,7 +8,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Analytics - SpareHub</title>
-    <link rel="stylesheet" href="../styles/about.css">
+    <link rel="stylesheet" href="../styles/admin.css">
     <link rel="stylesheet" href="../styles/analytics.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

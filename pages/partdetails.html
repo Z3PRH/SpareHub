@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>SpareHub</title>
-    <link rel="stylesheet" href="../styles/partdetails.css">
+    <link rel="stylesheet" href="../styles/partdetails.css ">
     <style>
         /* Add a bit of style for the new button */
         .buy-now-btn {
@@ -18,6 +18,7 @@
             font-size: 1.2em;
             cursor: pointer;
             margin-top: 20px;
+            margin-bottom: 20px;
             text-decoration: none;
         }
         .buy-now-btn:hover {
@@ -76,16 +77,49 @@
                 <button type="submit" >Submit Review</button>
             </form>
         </div>
-        <div class="related-parts-section" >
+        <div class="related-parts-section">
             <h2>Related Parts</h2>
-            <div class="related-part-card" onclick="window.location.href='partdetails.html?id=2'">
-                <div class="related-part-image"><img src="../images/airfilter.png" alt="Related Part 1"></div>
-                <h3>Air Filter</h3>
-                <p>Price:₹800</p>
-            <ul id="related-parts"></ul>
-            </div>
-            <footer>© 2025 AutoParts. All rights reserved.</footer>
+            <ul>
+                <li>
+                    <a href="partdetails.html?id=2" style="text-decoration:none; color:inherit;">
+                        <div class="related-part-image">
+                            <img src="../images/brakepad.png" alt="Related Part 1">
+                        </div>
+                        <span class="related-part-name">Brake Pad Set</span>
+                        <div class="related-part-info">
+                            <span class="related-part-condition">Condition: New</span>
+                            <span class="related-part-stock available">In Stock</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="partdetails.html?id=3" style="text-decoration:none; color:inherit;">
+                        <div class="related-part-image">
+                            <img src="../images/clutchplate.png" alt="Related Part 2">
+                        </div>
+                        <span class="related-part-name">Clutchplate</span>
+                        <div class="related-part-info">
+                            <span class="related-part-condition">Condition: Refurbished</span><br>
+                            <span class="related-part-stock unavailable">In Stock</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="partdetails.html?id=5" style="text-decoration:none; color:inherit;">
+                        <div class="related-part-image">
+                            <img src="../images/headlight.png" alt="Related Part 3">
+                        </div>
+                        <span class="related-part-name">Headlight</span>
+                        <div class="related-part-info">
+                            <span class="related-part-condition">Condition: Refurbished</span>
+                            <span class="related-part-stock available">In Stock</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
         </div>
+        <footer>© 2025 AutoParts. All rights reserved.</footer>
+    </div>
     <script src="partdetails.js"></script>
 </body>
 </html>

@@ -84,11 +84,7 @@ h1#part-name {
     color: #38a169;
 }
 
-.related-part-image img
-{
-    border: #fcf4f4 solid 1px;
-    border-radius: 8px;
-}
+
 .rating-section, .reviews-section, .review-form-section, .related-parts-section {
     background: white;
     border-radius: 12px;
@@ -107,6 +103,10 @@ h1#part-name {
     margin-bottom: 20px;
     padding-bottom: 12px;
     border-bottom: 2px solid #e2e8f0;
+}
+
+.related-parts-section {
+    animation: fadeInUp 0.6s ease-out forwards;
 }
 
 #part-rating {
@@ -188,25 +188,57 @@ h1#part-name {
 .related-parts-section ul {
     list-style: none;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;   /* Change to row for horizontal layout */
     gap: 12px;
+    padding: 0;
+    flex-wrap: wrap;       /* Allow wrapping on small screens */
+}
+
+.related-part-image img {
+    border-radius: 5px;
+    width: 200px;                /* Smaller square for better fit */
+    height: 200px;
+    object-fit: cover;
 }
 
 .related-parts-section li {
     font-size: 14px;
-    color: #4a5568;
+    color: #000000;
     padding: 8px 0;
     transition: color 0.3s ease;
+    border: 2px solid #000000;
+    border-radius: 50px;
+    margin-bottom: 8px;
+    width: 220px;                /* Smaller card width for side-by-side */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
 }
 
 .related-parts-section li:hover {
     color: #ff4d4d;
+    border-color: #ff4d4d;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.related-part-condition {
+    color: #718096;
+    font-size: 13px;
+    display: block;
+}
+
+.related-part-stock{
+    color: #38a169;
+    font-size: 13px;
+    font-weight: 500;
 }
 
 footer {
     text-align: center;
     padding: 20px 0;
-    color: #4a5568;
+    color: #000000;
     font-size: 14px;
     border-top: 1px solid #e2e8f0;
 }
