@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cash on Delivery Confirmation</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; text-align: center; }
+        .container { max-width: 500px; margin: auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1 { color: #333; }
+        p { color: #555; }
+        button { padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 20px; }
+        button:hover { background-color: #218838; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cash on Delivery</h1>
+        <p>You have selected Cash on Delivery. Your order will be confirmed and shipped soon.</p>
+        <p>Please have the exact amount ready at the time of delivery.</p>
+        <button onclick="confirmOrder()">Confirm Order</button>
+    </div>
+    <script>
+        function confirmOrder() {
+            alert('Your order has been placed successfully! Thank you for your purchase.');
+            window.location.href = '../pages/results.php';
+        }
+    </script>
+</body>
+</html>

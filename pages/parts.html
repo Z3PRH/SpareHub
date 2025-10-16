@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spare Parts - SpareHub</title>
+    <link rel="stylesheet" href="../styles/part.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="navbar">
+        <div class="brand">SpareHub</div>
+        <div class="links">
+            <ul>
+                <li><a href="./Homepage.php">Home</a></li>
+                <li><a href="./about.html">About</a></li>
+                <li>
+                    <button class="filter-btn" onclick="toggleFilters()" id="navbarFilterBtn">
+                        Hide Filters
+                    </button>
+                </li>
+                <li>
+                    <a href="cart.php" class="cart-icon-link" title="View Cart">
+                        <span class="cart-icon">
+                            🛒
+                            <span id="cart-count" class="cart-count">0</span>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <main class="results-main">
+        <section class="filters-sidebar" id="filtersSidebar">
+            <div class="filters-header">
+                <h3>Filters</h3>
+                <button class="clear-filters-btn" onclick="clearAllFilters()">Clear All</button>
+            </div>
+
+            <div class="filter-group">
+                <h4>Price Range</h4>
+                <ul class="checkbox-group">
+                    <li><label><input type="checkbox" value="500-1000" onchange="applyFilters()"> ₹500 - ₹1000</label></li>
+                    <li><label><input type="checkbox" value="1000-2000" onchange="applyFilters()"> ₹1000 - ₹2000</label></li>
+                    <li><label><input type="checkbox" value="2000+" onchange="applyFilters()"> ₹2000+</label></li>
+                </ul>
+            </div>
+
+            <div class="filter-group">
+                <h4>Brand</h4>
+                <ul class="checkbox-group">
+                    <li><label><input type="checkbox" value="OEM Parts" onchange="applyFilters()"> OEM Parts</label></li>
+                    <li><label><input type="checkbox" value="Aftermarket" onchange="applyFilters()"> Aftermarket</label></li>
+                    <li><label><input type="checkbox" value="Performance" onchange="applyFilters()"> Performance</label></li>
+                </ul>
+            </div>
+
+            <div class="filter-group">
+                <h4>Condition</h4>
+                <ul class="checkbox-group">
+                    <li><label><input type="checkbox" value="New" onchange="applyFilters()"> New</label></li>
+                    <li><label><input type="checkbox" value="Used" onchange="applyFilters()"> Used</label></li>
+                    <li><label><input type="checkbox" value="Refurbished" onchange="applyFilters()"> Refurbished</label></li>
+                </ul>
+            </div>
+
+            <div class="filter-group">
+                <h4>Availability</h4>
+                <ul class="checkbox-group">
+                    <li><label><input type="checkbox" value="In Stock" onchange="applyFilters()"> In Stock</label></li>
+                    <li><label><input type="checkbox" value="Fast Shipping" onchange="applyFilters()"> Fast Shipping</label></li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="results-grid">
+            <div class="results-header-bar">
+                <a href="../pages/Homepage.php" class="back-link">← Back to Search</a>
+                <span class="results-count" id="resultsCount">Loading...</span>
+            </div>
+
+            <h2 id="searchInfo">Available Parts</h2>
+
+            <div class="products-grid" id="productsList">
+                <!-- Products will be loaded here dynamically -->
+            </div>
+        </section>
+    </main>
+
+    <footer>© 2025 AutoParts. All rights reserved.</footer>
+
+    <script>
+        // Replace the partsData object with only Air Filter, Brake Pads, and Spark Plug for all brands/models/years
+
+const partsData = {
+    Volkswagen: {
+        Model1: {
+            2022: [
+                { name: "Air Filter", oem: "VW-AF-2023-001", price: 250, brand: "Performance", condition: "Refurbished", availability: "In Stock", image: "../images/airfilter.png" },
+                { name: "Brake Pads", oem: "VW-BP-2023-002", price: 800, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/brakepad.png" },
+                { name: "Spark Plug", oem: "VW-SP-2023-003", price: 2500, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/sparkplug.png" }
+            ],
+            2023: [
+                { name: "Air Filter", oem: "VW-AF-2023-001", price: 250, brand: "Performance", condition: "Refurbished", availability: "In Stock", image: "../images/airfilter.png" },
+                { name: "Brake Pads", oem: "VW-BP-2023-002", price: 800, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/brakepad.png" },
+                { name: "Spark Plug", oem: "VW-SP-2023-003", price: 2500, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/sparkplug.png" }
+            ],
+            2024: [
+                { name: "Air Filter", oem: "VW-AF-2024-001", price: 250, brand: "Performance", condition: "Refurbished", availability: "In Stock", image: "../images/airfilter.png" },
+                { name: "Brake Pads", oem: "VW-BP-2024-002", price: 800, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/brakepad.png" },
+                { name: "Spark Plug", oem: "VW-SP-2024-003", price: 2500, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/sparkplug.png" }
+            ]
+        },
+        Model2: {
+            2022: [
+                { name: "Air Filter", oem: "VW-AF-2022-001", price: 250, brand: "Performance", condition: "Refurbished", availability: "In Stock", image: "../images/airfilter.png" },
+                { name: "Brake Pads", oem: "VW-BP-2022-002", price: 800, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/brakepad.png" },
+                { name: "Spark Plug", oem: "VW-SP-2022-003", price: 2500, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/sparkplug.png" }
+            ],
+            2023: [
+                { name: "Air Filter", oem: "VW-AF-2023-001", price: 250, brand: "Performance", condition: "Refurbished", availability: "In Stock", image: "../images/airfilter.png" },
+                { name: "Brake Pads", oem: "VW-BP-2023-002", price: 800, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/brakepad.png" },
+                { name: "Spark Plug", oem: "VW-SP-2023-003", price: 2500, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/sparkplug.png" }
+            ],
+            2024: [
+                { name: "Air Filter", oem: "VW-AF-2024-001", price: 250, brand: "Performance", condition: "Refurbished", availability: "In Stock", image: "../images/airfilter.png" },
+                { name: "Brake Pads", oem: "VW-BP-2024-002", price: 800, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/brakepad.png" },
+                { name: "Spark Plug", oem: "VW-SP-2024-003", price: 2500, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/sparkplug.png" }
+            ]
+        }
+    },
+    Honda: {
+        Model1: {
+            2022: [
+                { name: "Air Filter", oem: "HN-AF-2022-001", price: 250, brand: "Performance", condition: "Refurbished", availability: "In Stock", image: "../images/airfilter.png" },
+                { name: "Brake Pads", oem: "HN-BP-2022-002", price: 800, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/brakepad.png" },
+                { name: "Spark Plug", oem: "HN-SP-2022-003", price: 2500, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/sparkplug.png" }
+            ],
+            2023: [
+                { name: "Air Filter", oem: "HN-AF-2023-001", price: 250, brand: "Performance", condition: "Refurbished", availability: "In Stock", image: "../images/airfilter.png" },
+                { name: "Brake Pads", oem: "HN-BP-2023-002", price: 800, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/brakepad.png" },
+                { name: "Spark Plug", oem: "HN-SP-2023-003", price: 2500, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/sparkplug.png" }
+            ],
+            2024: [
+                { name: "Air Filter", oem: "HN-AF-2024-001", price: 250, brand: "Performance", condition: "Refurbished", availability: "In Stock", image: "../images/airfilter.png" },
+                { name: "Brake Pads", oem: "HN-BP-2024-002", price: 800, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/brakepad.png" },
+                { name: "Spark Plug", oem: "HN-SP-2024-003", price: 2500, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/sparkplug.png" }
+            ]
+        },
+        Model2: {
+            2022: [
+                { name: "Air Filter", oem: "HN-AF-2022-001", price: 250, brand: "Performance", condition: "Refurbished", availability: "In Stock", image: "../images/airfilter.png" },
+                { name: "Brake Pads", oem: "HN-BP-2022-002", price: 800, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/brakepad.png" },
+                { name: "Spark Plug", oem: "HN-SP-2022-003", price: 2500, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/sparkplug.png" }
+            ],
+            2023: [
+                { name: "Air Filter", oem: "HN-AF-2023-001", price: 250, brand: "Performance", condition: "Refurbished", availability: "In Stock", image: "../images/airfilter.png" },
+                { name: "Brake Pads", oem: "HN-BP-2023-002", price: 800, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/brakepad.png" },
+                { name: "Spark Plug", oem: "HN-SP-2023-003", price: 2500, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/sparkplug.png" }
+            ],
+            2024: [
+                { name: "Air Filter", oem: "HN-AF-2024-001", price: 250, brand: "Performance", condition: "Refurbished", availability: "In Stock", image: "../images/airfilter.png" },
+                { name: "Brake Pads", oem: "HN-BP-2024-002", price: 800, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/brakepad.png" },
+                { name: "Spark Plug", oem: "HN-SP-2024-003", price: 2500, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/sparkplug.png" }
+            ]
+        }
+    },
+    Maruti: {
+        Model1: {
+            2022: [
+                { name: "Air Filter", oem: "MR-AF-2022-001", price: 250, brand: "Performance", condition: "Refurbished", availability: "In Stock", image: "../images/airfilter.png" },
+                { name: "Brake Pads", oem: "MR-BP-2022-002", price: 800, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/brakepad.png" },
+                { name: "Spark Plug", oem: "MR-SP-2022-003", price: 2500, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/sparkplug.png" }
+            ],
+            2023: [
+                { name: "Air Filter", oem: "MR-AF-2023-001", price: 250, brand: "Performance", condition: "Refurbished", availability: "In Stock", image: "../images/airfilter.png" },
+                { name: "Brake Pads", oem: "MR-BP-2023-002", price: 800, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/brakepad.png" },
+                { name: "Spark Plug", oem: "MR-SP-2023-003", price: 2500, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/sparkplug.png" }
+            ],
+            2024: [
+                { name: "Air Filter", oem: "MR-AF-2024-001", price: 250, brand: "Performance", condition: "Refurbished", availability: "In Stock", image: "../images/airfilter.png" },
+                { name: "Brake Pads", oem: "MR-BP-2024-002", price: 800, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/brakepad.png" },
+                { name: "Spark Plug", oem: "MR-SP-2024-003", price: 2500, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/sparkplug.png" }
+            ]
+        },
+        Model2: {
+            2022: [
+                { name: "Air Filter", oem: "MR-AF-2022-001", price: 250, brand: "Performance", condition: "Refurbished", availability: "In Stock", image: "../images/airfilter.png" },
+                { name: "Brake Pads", oem: "MR-BP-2022-002", price: 800, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/brakepad.png" },
+                { name: "Spark Plug", oem: "MR-SP-2022-003", price: 2500, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/sparkplug.png" }
+            ],
+            2023: [
+                { name: "Air Filter", oem: "MR-AF-2023-001", price: 250, brand: "Performance", condition: "Refurbished", availability: "In Stock", image: "../images/airfilter.png" },
+                { name: "Brake Pads", oem: "MR-BP-2023-002", price: 800, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/brakepad.png" },
+                { name: "Spark Plug", oem: "MR-SP-2023-003", price: 2500, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/sparkplug.png" }
+            ],
+            2024: [
+                { name: "Air Filter", oem: "MR-AF-2024-001", price: 250, brand: "Performance", condition: "Refurbished", availability: "In Stock", image: "../images/airfilter.png" },
+                { name: "Brake Pads", oem: "MR-BP-2024-002", price: 800, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/brakepad.png" },
+                { name: "Spark Plug", oem: "MR-SP-2024-003", price: 2500, brand: "OEM Parts", condition: "New", availability: "In Stock", image: "../images/sparkplug.png" }
+            ]
+        }
+    }
+};
+
+        let allParts = [];
+        let filteredParts = [];
+
+        window.onload = function() {
+            const params = new URLSearchParams(window.location.search);
+            const brand = params.get('brand');
+            const model = params.get('model');
+            const year = params.get('year');
+
+            if (brand && model && year && partsData[brand] && partsData[brand][model] && partsData[brand][model][year]) {
+                document.getElementById('searchInfo').textContent = `Parts for ${brand} ${model} (${year})`;
+                allParts = partsData[brand][model][year];
+                filteredParts = [...allParts];
+                displayParts(filteredParts);
+            } else {
+                document.getElementById('searchInfo').textContent = 'No parts found';
+                document.getElementById('productsList').innerHTML = '<p style="text-align: center; color: #718096; padding: 40px;">No parts found for the selected criteria.</p>';
+                document.getElementById('resultsCount').textContent = '0 results found';
+            }
+
+            updateCartCount();
+        };
+
+        function displayParts(parts) {
+            const container = document.getElementById('productsList');
+            container.innerHTML = '';
+
+            if (parts.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #718096; padding: 40px;">No parts match your filters.</p>';
+                document.getElementById('resultsCount').textContent = '0 results found';
+                return;
+            }
+
+            parts.forEach(part => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.dataset.price = part.price;
+                card.dataset.brand = part.brand;
+                card.dataset.condition = part.condition;
+                card.dataset.availability = part.availability;
+
+                // Set the correct id for redirection
+                let partId = '';
+                if (part.name.toLowerCase().includes('air filter')) {
+                    partId = 1;
+                } else if (part.name.toLowerCase().includes('brake pad')) {
+                    partId = 2;
+                } else if (part.name.toLowerCase().includes('spark plug')) {
+                    partId = 4;
+                } else {
+                    partId = encodeURIComponent(part.oem); // fallback to oem if needed
+                }
+
+                card.onclick = function() {
+                    window.location.href = `partdetails.php?id=${partId}`;
+                };
+
+                card.innerHTML = `
+                    <div class="product-image">
+                        <img src="${part.image}" alt="${part.name}">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-brand">${part.brand}</div>
+                        <h3 class="product-name">${part.name}</h3>
+                        <div class="product-pricing">
+                            <span class="current-price">₹${part.price}</span>
+                        </div>
+                        <div class="product-condition">Condition: ${part.condition}</div>
+                        <div class="product-shipping">${part.availability}</div>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+
+            document.getElementById('resultsCount').textContent = `${parts.length} results found`;
+        }
+
+        function toggleFilters() {
+            const sidebar = document.getElementById('filtersSidebar');
+            const main = document.querySelector('.results-main');
+            const btn = document.getElementById('navbarFilterBtn');
+
+            sidebar.classList.toggle('hidden');
+            main.classList.toggle('no-filters');
+            btn.textContent = sidebar.classList.contains('hidden') ? 'Show Filters' : 'Hide Filters';
+        }
+
+        function applyFilters() {
+            const priceFilters = getCheckedValues('Price Range');
+            const brandFilters = getCheckedValues('Brand');
+            const conditionFilters = getCheckedValues('Condition');
+            const availabilityFilters = getCheckedValues('Availability');
+
+            filteredParts = allParts.filter(part => {
+                let show = true;
+
+                if (priceFilters.length > 0) {
+                    show = priceFilters.some(filter => {
+                        if (filter === '500-1000') return part.price >= 500 && part.price <= 1000;
+                        if (filter === '1000-2000') return part.price > 1000 && part.price <= 2000;
+                        if (filter === '2000+') return part.price > 2000;
+                        return false;
+                    });
+                }
+
+                if (show && brandFilters.length > 0) {
+                    show = brandFilters.includes(part.brand);
+                }
+
+                if (show && conditionFilters.length > 0) {
+                    show = conditionFilters.includes(part.condition);
+                }
+
+                if (show && availabilityFilters.length > 0) {
+                    show = availabilityFilters.includes(part.availability);
+                }
+
+                return show;
+            });
+
+            displayParts(filteredParts);
+        }
+
+        function getCheckedValues(groupName) {
+            const filterGroups = document.querySelectorAll('.filter-group');
+            for (let group of filterGroups) {
+                if (group.querySelector('h4').textContent === groupName) {
+                    const checked = group.querySelectorAll('input:checked');
+                    return Array.from(checked).map(cb => cb.value);
+                }
+            }
+            return [];
+        }
+
+        function clearAllFilters() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(cb => cb.checked = false);
+            filteredParts = [...allParts];
+            displayParts(filteredParts);
+        }
+
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const el = document.getElementById('cart-count');
+            if (el) el.textContent = count;
+        }
+    </script>
+</body>
+</html>

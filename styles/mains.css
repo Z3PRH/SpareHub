@@ -1,0 +1,210 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+body {
+    width: 100vw;
+    min-height: 100vh;
+    font-family: 'Poppins', Arial, sans-serif;
+    background: #f4f4f4;
+}
+
+.navbar {
+    background: #111;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 42px;
+    height: 83px;
+    box-shadow: 0 4px 14px #0002;
+}
+
+.brand {
+    font-family: 'Poppins', Arial, sans-serif;
+    font-size: 2.1em;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    background: linear-gradient(135deg, #ff4d4d, #ff7878, #ffa500);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 42px;
+}
+
+.nav-links a,
+.nav-links .navbar-greeting {
+    color: #ffbe40;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.29em;
+    border-radius: 5px;
+    padding: 7px 7px;
+    transition: background 0.15s, color 0.15s;
+}
+
+.nav-links a:not(.login-btn):hover,
+.profile-link:hover {
+    background: #fff3;
+    color: #fff;
+}
+
+.nav-links .profile-link {
+    background: #eafaf3;
+    color: #10a37f;
+    padding: 7px 19px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.nav-links .profile-link:hover {
+    background: #c4efe0;
+    color: #064c36;
+}
+
+.nav-links .login-btn {
+    background: linear-gradient(135deg, #ff5757, #ffb347);
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.15em;
+    padding: 10px 24px;
+    margin-left: 20px;
+    margin-right: 7px;
+    text-shadow: 0 2px 6px #2221;
+    box-shadow: 0 2px 14px #fd5e5355;
+    letter-spacing: 0.5px;
+}
+
+.nav-links .logout-link {
+    background: none;
+    color: #ffbe40;
+    margin-left: 5px;
+}
+
+@media (max-width: 750px) {
+    .navbar {
+        flex-direction: column;
+        height: auto;
+        padding: 18px;
+    }
+
+    .brand {
+        margin-bottom: 18px;
+    }
+
+    .nav-links {
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+}
+
+.homepage-bg {
+    background: url('../images/homepage.jpg') center center / cover no-repeat !important;
+    width: 100vw;
+    height: calc(100vh - 83px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.homepage-main-card {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 44px 34px 36px 34px;
+    background: #fff;
+    border-radius: 22px;
+    text-align: center;
+    box-shadow: 0 4px 26px #2221;
+    position: relative;
+    z-index: 10;
+}
+
+.homepage-main-card h2 {
+    margin-bottom: 28px;
+    color: #383b44;
+    font-size: 2.25em;
+    font-family: 'Poppins', Arial, sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.015em;
+    text-align: center;
+}
+
+.homepage-main-card .selectors {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 28px;
+}
+
+.homepage-main-card select {
+    padding: 13px 17px;
+    border-radius: 10px;
+    border: 2px solid #222;
+    font-size: 1.08em;
+    outline: none;
+    width: 220px;
+    background: #fff;
+    margin-bottom: 10px;
+}
+
+.homepage-main-card select:focus {
+    border: 2px solid #ffbe40;
+}
+
+.homepage-main-card .search-buttons {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.homepage-main-card .search-btn,
+.homepage-main-card .all-btn {
+    color: #fff;
+    padding: 13px 46px;
+    font-size: 1.17em;
+    font-weight: 600;
+    border: none;
+    border-radius: 11px;
+    cursor: pointer;
+    transition: background 0.16s, box-shadow 0.18s;
+    margin-top: 6px;
+    box-shadow: 0 2px 16px #fd5e5321;
+}
+
+.homepage-main-card .search-btn {
+    background: linear-gradient(90deg, #ff5757 0%, #ffb347 100%);
+}
+
+.homepage-main-card .all-btn {
+    background: linear-gradient(90deg, #fa6c93 0%, #ffb347 100%);
+}
+
+.homepage-main-card .search-btn:active,
+.homepage-main-card .all-btn:active {
+    filter: brightness(0.95);
+}
+
+.homepage-main-card p {
+    margin-top: 38px;
+    color: #31353c;
+    font-size: 1.22em;
+    font-family: 'Poppins', Arial, sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.005em;
+    text-align: center;
+    line-height: 1.45;
+}

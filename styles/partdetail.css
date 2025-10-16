@@ -1,0 +1,397 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #f5f7fa;
+    line-height: 1.6;
+    color: #333;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background: black;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+.brand {
+    font-size: 38px;
+    font-weight: bold;
+    background: linear-gradient(135deg, #ff4d4d, #ff7878, #ffa500);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
+}
+
+.links ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    align-items: flex-end;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.links li {
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+}
+
+.links a {
+    text-decoration: none;
+    color: #ffa500;
+    font-size: 22px;
+    padding: 8px 14px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    background: none;
+}
+
+.links a:hover, .links .sign {
+    color: #fff;
+    background: linear-gradient(135deg, #ff4d4d, #ff7878, #ffa500);
+}
+
+.buy-now-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            text-decoration: none;
+        }
+        .buy-now-btn:hover {
+            background-color: #218838;
+        }
+        .add-to-cart-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            text-decoration: none;
+        }
+        .add-to-cart-btn:hover {
+            background-color: #0069d9;
+        }
+
+.part-details-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #ff4d4d, #ff7878, #ffa500);
+    color: #ffffff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.back-link:hover {
+    background: linear-gradient(135deg, #4d50ff, #78c9ff, #00ff88);
+    color: #000;
+    transform: translateY(-2px);
+}
+
+h1#part-name {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.part-info {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 24px;
+    margin-bottom: 30px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.part-info img#part-image {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.part-info p {
+    font-size: 16px;
+    color: #4a5568;
+    margin-bottom: 12px;
+}
+
+.part-info p span {
+    font-weight: 600;
+    color: #2d3748;
+}
+
+.part-info p span#part-price {
+    color: #ff4d4d;
+}
+
+.part-info p span#part-availability {
+    color: #38a169;
+}
+
+
+.rating-section, .reviews-section, .review-form-section, .related-parts-section {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 24px;
+    margin-bottom: 30px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.rating-section h2, .reviews-section h2, .review-form-section h2, .related-parts-section h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.related-parts-section {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+#part-rating {
+    font-size: 16px;
+    color: #ff4d4d;
+    font-weight: 500;
+}
+
+#part-reviews > div {
+    border-bottom: 1px solid #e2e8f0;
+    padding: 16px 0;
+}
+
+#part-reviews > div:last-child {
+    border-bottom: none;
+}
+
+#part-reviews p {
+    font-size: 14px;
+    color: #4a5568;
+    margin-bottom: 8px;
+}
+
+#part-reviews p:first-child {
+    font-weight: 600;
+    color: #2d3748;
+}
+
+.review-form-section form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.review-form-section label {
+    font-size: 14px;
+    color: #4a5568;
+    font-weight: 500;
+}
+
+.review-form-section select,
+.review-form-section textarea {
+    padding: 10px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #4a5568;
+    transition: border-color 0.3s ease;
+}
+
+.review-form-section select:focus,
+.review-form-section textarea:focus {
+    outline: none;
+    border-color: #ff4d4d;
+}
+
+.review-form-section textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.review-form-section button {
+    padding: 10px 20px;
+    border: none;
+    background: linear-gradient(135deg, #ff4d4d, #ff7878, #ffa500);
+    color: #ffffff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.review-form-section button:hover {
+    background: linear-gradient(135deg, #4d50ff, #78c9ff, #00ff88);
+    color: #000;
+    transform: translateY(-2px);
+}
+
+.related-parts-section ul {
+    list-style: none;
+    display: flex;
+    flex-direction: row;   /* Change to row for horizontal layout */
+    gap: 12px;
+    padding: 0;
+    flex-wrap: wrap;       /* Allow wrapping on small screens */
+}
+
+.related-part-image img {
+    border-radius: 5px;
+    width: 200px;                /* Smaller square for better fit */
+    height: 200px;
+    object-fit: cover;
+}
+
+.related-parts-section li {
+    font-size: 14px;
+    color: #000000;
+    padding: 8px 0;
+    transition: color 0.3s ease;
+    border: 2px solid #000000;
+    border-radius: 50px;
+    margin-bottom: 8px;
+    width: 220px;                /* Smaller card width for side-by-side */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+}
+
+.related-parts-section li:hover {
+    color: #ff4d4d;
+    border-color: #ff4d4d;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.related-part-condition {
+    color: #718096;
+    font-size: 13px;
+    display: block;
+}
+
+.related-part-stock{
+    color: #38a169;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+footer {
+    text-align: center;
+    padding: 20px 0;
+    color: #000000;
+    font-size: 14px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.add-to-cart-btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #ff9800;
+    color: white;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-bottom: 20px;
+    text-decoration: none;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #e68900;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .part-details-container {
+        padding: 20px 15px;
+    }
+
+    .part-info img#part-image {
+        max-width: 100%;
+    }
+
+    h1#part-name {
+        font-size: 28px;
+    }
+
+    .rating-section h2, .reviews-section h2, .review-form-section h2, .related-parts-section h2 {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .part-info, .rating-section, .reviews-section, .review-form-section, .related-parts-section {
+        padding: 16px;
+    }
+
+    .review-form-section select,
+    .review-form-section textarea,
+    .review-form-section button {
+        font-size: 12px;
+    }
+}

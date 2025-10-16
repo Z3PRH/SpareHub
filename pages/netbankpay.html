@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Netbanking Payment</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
+        .container { max-width: 500px; margin: auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #333; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; color: #555; }
+        input[type="text"], input[type="password"], select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+
+        /* Styles for the pop-up animation */
+        .popup-container {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            background-color: white;
+            padding: 40px 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: pop-up-animation 0.5s ease-out forwards;
+        }
+
+        @keyframes pop-up-animation {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .success-icon {
+            color: #28a745;
+            font-size: 50px;
+            margin-bottom: 10px;
+      
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Netbanking Payment</h1>
+        <form id="netbankingForm">
+            <div class="form-group">
+                <label for="bank">Select Your Bank</label>
+                <select id="bank" name="bank">
+                    <option value="">-- Choose a Bank --</option>
+                    <option value="sbi">State Bank of India</option>
+                    <option value="icici">ICICI Bank</option>
+                    <option value="hdfc">HDFC Bank</option>
+                    <option value="pnb">Punjab National Bank</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="acno">Account Number</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Pay Now</button>
+        </form>
+    </div>
+
+    <div id="payment-popup" class="popup-container">
+        <div class="popup-content">
+            <div class="success-icon">✔️</div>
+            <h2>Payment Successful!</h2>
+            <p>Your payment has been processed. Thank you for your purchase.</p>
+            <button onclick="window.location.href='./results.php'">Continue Shopping</button>
+        </div>
+        
+    </div>
+    
+    <script>
+        document.getElementById('netbankingForm').onsubmit = function(event) {
+            event.preventDefault();
+            // Simulate a delay for the payment processing
+            setTimeout(() => {
+                // Show the pop-up
+                const popup = document.getElementById('payment-popup');
+                popup.style.display = 'flex';
+            }, 1000);
+
+        };
+        
+    </script>
+</body>
+</html>

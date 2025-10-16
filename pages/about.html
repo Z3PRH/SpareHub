@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - SpareHub</title>
+    <link rel="stylesheet" href="../styles/about.css">
+    <link rel="stylesheet" href="../styles/mains.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="navbar">
+        <div class="brand">SpareHub</div>
+        <div class="links">
+            <ul>
+                <li><a href="./Homepage.php">Home</a></li>
+                <li><a href="./Login.html" class="sign">Login</a></li>
+                <li>
+                    <a href="cart.php" class="cart-icon-link" title="View Cart">
+                        <span class="cart-icon">
+                            🛒
+                            <span id="cart-count" class="cart-count">0</span>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="about-main">
+        <div class="about-content">
+            <h2>About Us</h2>
+            <p>
+                SpareHub is your one-stop online platform for finding and purchasing high-quality automobile spare parts.
+                We offer a wide selection of parts for popular brands like Volkswagen, Honda, and Maruti, making it easy
+                for customers to search, compare, and review products. Our goal is to provide a reliable, user-friendly
+                experience for vehicle owners and enthusiasts looking for genuine spare parts at competitive prices.
+            </p>
+        </div>
+    </div>
+    <script>
+    function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+        var el = document.getElementById('cart-count');
+        if (el) el.textContent = count;
+    }
+    updateCartCount();
+    </script>
+</body>
+</html>

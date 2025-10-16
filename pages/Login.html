@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - SpareHub</title>
+    <link rel="stylesheet" href="../styles/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head> 
+<body>
+
+    <nav class="navbar">
+        <div class="brand">SpareHub</div>
+        <div class="nav-links">
+            <a href="./Homepage.php" class="nav-link">Home</a>
+            <a href="./about.html" class="nav-link">About</a>
+        </div>
+    </nav>
+
+    <form action="./login.php" method="post" class="login-form">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="card-header">
+                <div class="header-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h1>Log In</h1>
+                <p>Enter your credentials to access your account</p>
+            </div>
+
+                <div class="form-group">
+                    <label for="userid">User ID</label>
+                    <div class="input-wrapper">
+                        <div class="input-icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/>
+                            </svg>
+                        </div>
+                        <input type="text" id="userid" name="userid" placeholder="Enter your user ID" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-wrapper">
+                        <div class="input-icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                            </svg>
+                        </div>
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary">Log In</button>
+
+            <!-- <div class="signup-link">
+                <p>Don't have an account? <a href="./signup.html">Create Account</a></p>
+            </div> -->
+        </div>
+    </div>
+    </form>
+</body>
+</html>
