@@ -2,129 +2,175 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>SpareHub - Sign Up</title>
-    <!-- <link rel="stylesheet" href="../styles/signup.css"> -->
+    <link rel="stylesheet" href="../styles/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      /* keep the message element styled red by default; .ok makes it green */
+      .field-msg { font-size:0.9rem; margin-top:6px; color:#d9534f; }
+      .field-msg.ok { color:#28a745; } /* green when passwords match */
+      .input-error input { border-color:#d9534f !important; box-shadow:0 0 0 3px rgba(217,83,79,0.08) !important; }
+    </style>
 </head>
 <body>
-    <div class="navbar">
+    <nav class="navbar">
         <div class="brand">SpareHub</div>
-        <div class="links">
-            <ul>
-                <li><a href="../pages/Homepage.html">Home</a></li>
-                <li><a href="../pages/about.html">About</a></li>
-                <li><a href="../pages/Login.html">Sign In</a></li>
-            </ul>
+        <div class="nav-links">
+            <a href="./Homepage.php" class="nav-link">Home</a>
+            <a href="./about.html" class="nav-link">About</a>
+        </div>
+    </nav>
+
+    <div class="login-container">
+        <div class="login-card">
+            <div class="card-header">
+                <div class="header-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h1>Sign Up</h1>
+                <p>Create your SpareHub account</p>
+            </div>
+
+            <form class="login-form" action="../database/insert.php" method="POST" id="signupForm" novalidate>
+                <div class="form-group" id="user-id-group">
+                    <label for="user_id">User ID (numbers only):</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon"></span>
+                        <input type="number" id="user_id" name="user_id" required min="1" step="1" placeholder="12345">
+                    </div>
+                    <div class="field-msg" id="user-id-msg" aria-live="polite"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon"></span>
+                        <input type="text" id="name" name="name" required placeholder="John Doe">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon"></span>
+                        <input type="email" id="email" name="email" required placeholder="you@example.com">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon"></span>
+                        <input type="tel" id="phone" name="phone" required placeholder="0712345678" pattern="\d{7,15}" title="Digits only, 7 to 15 characters">
+                    </div>
+                </div>
+
+                <div class="form-group" id="pw-group">
+                    <label for="password">Password:</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon"></span>
+                        <input type="password" id="password" name="password" required placeholder="Enter password" autocomplete="new-password">
+                    </div>
+                </div>
+
+                <div class="form-group" id="confirm-pw-group">
+                    <label for="confirm_password">Confirm Password:</label>
+                    <div class="input-wrapper" id="confirm-input-wrapper">
+                        <span class="input-icon"></span>
+                        <input type="password" id="confirm_password" name="confirm_password" required placeholder="Repeat password" autocomplete="new-password">
+                    </div>
+                    <div class="field-msg" id="pw-match-msg" aria-live="polite"></div>
+                </div>
+
+                <button type="submit" class="btn-primary">Create Account</button>
+
+                <div class="signup-link">
+                    <p>Already have an account? <a href="./Login.html">Sign In</a></p>
+                </div>
+            </form>
         </div>
     </div>
-    <div class="signup-container">
-        <h1>Sign Up</h1>
-        <form action="../database/insert.php" method="POST">
-            <label for="name">Full Name:</label>
-            <input type="text" id="name" name="name" required>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            <button type="submit">Create Account</button>
-        </form>
-        <p>Already have an account? <a href="../pages/Login.html">Sign In</a></p>
-    </div>
+
     <footer>© 2025 SpareHub. All rights reserved.</footer>
+
+    <script>
+    (function() {
+      const form = document.getElementById('signupForm');
+      const pw = document.getElementById('password');
+      const cpw = document.getElementById('confirm_password');
+      const msg = document.getElementById('pw-match-msg');
+      const cpwWrapper = document.getElementById('confirm-input-wrapper');
+
+      // ensure msg always has base class so .ok can override color
+      if (msg && !msg.classList.contains('field-msg')) msg.classList.add('field-msg');
+
+      function updatePwMatch() {
+        const p = pw.value;
+        const c = cpw.value;
+
+        if (c.length === 0) {
+          msg.textContent = '';
+          msg.classList.remove('ok');
+          cpwWrapper.classList.remove('input-error');
+          return;
+        }
+
+        if (p === c) {
+          msg.textContent = 'Passwords match.';
+          msg.classList.add('ok');           // turn green
+          cpwWrapper.classList.remove('input-error');
+        } else {
+          msg.textContent = 'Passwords do not match.';
+          msg.classList.remove('ok');        // keep red
+          cpwWrapper.classList.add('input-error');
+        }
+      }
+
+      pw.addEventListener('input', updatePwMatch);
+      cpw.addEventListener('input', updatePwMatch);
+
+      form.addEventListener('submit', function(e){
+        if (pw.value !== cpw.value) {
+          e.preventDefault();
+          updatePwMatch();
+          cpw.focus();
+          return false;
+        }
+      });
+
+      // read URL params to show server-side errors / prefill fields
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('error') === 'duplicate') {
+        const uidMsg = document.getElementById('user-id-msg');
+        uidMsg.textContent = 'User ID already in use — please choose a different User ID.';
+        document.getElementById('user-id-group').classList.add('input-error');
+      } else if (params.get('error') === 'pass_mismatch') {
+        const pm = document.getElementById('pw-match-msg');
+        pm.textContent = 'Passwords do not match.';
+        document.getElementById('confirm-input-wrapper').classList.add('input-error');
+      } else if (params.get('error') === 'required') {
+        // generic required fields missing
+        const uidMsg = document.getElementById('user-id-msg');
+        uidMsg.textContent = 'Please fill all required fields.';
+      }
+
+      // prefill fields if provided in query (avoid prefill for passwords)
+      ['user_id','name','email','phone'].forEach(k=>{
+        if (params.get(k)) {
+          const el = document.getElementById(k);
+          if (el) el.value = params.get(k);
+        }
+      });
+
+      // remove query string so messages don't persist on refresh/submit
+      if (window.history && window.history.replaceState) {
+        const cleanUrl = window.location.protocol + '//' + window.location.host + window.location.pathname;
+        window.history.replaceState({}, document.title, cleanUrl);
+      }
+    })();
+    </script>
 </body>
 </html>
-<style>body {
-    font-family: 'Inter', Arial, sans-serif;
-    background: #fafafa;
-    margin: 0;
-    padding: 0;
-}
-
-.signup-card {
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 8px 32px #2221;
-    width: 420px;
-    max-width: 90vw;
-    margin: 80px auto;
-    padding: 40px 36px 28px 36px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.signup-title {
-    font-size: 2.4em;
-    font-weight: 700;
-    color: #293046;
-    text-align: center;
-    margin-bottom: 5px;
-}
-
-.signup-sub {
-    font-size: 1.15em;
-    color: #555;
-    text-align: center;
-    margin-bottom: 26px;
-}
-
-.signup-form label {
-    font-weight: 500;
-    color: #222;
-    margin-bottom: 6px;
-    display: block;
-}
-
-.signup-form input {
-    width: 100%;
-    padding: 13px 15px;
-    font-size: 1.07em;
-    border: 1.5px solid #e1e4ea;
-    border-radius: 7px;
-    margin-bottom: 18px;
-    transition: border .18s;
-    background: #f8fafc;
-}
-
-.signup-form input:focus {
-    outline: none;
-    border: 1.5px solid #fd5e53;
-    background: #fffaf8;
-}
-
-.signup-btn {
-    width: 100%;
-    background: linear-gradient(90deg, #fd5e53 5%, #ffbe40 90%);
-    color: #fff;
-    font-size: 1.22em;
-    font-weight: 700;
-    padding: 14px 0;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 10px;
-    margin-bottom: 18px;
-    letter-spacing: .02em;
-    transition: background 0.14s;
-}
-
-.signup-btn:hover {
-    background: linear-gradient(90deg, #ffbe40 5%, #fd5e53 90%);
-}
-
-.signup-link-row {
-    text-align: center;
-    color: #8d98a7;
-    font-size: 1em;
-    margin-top: 18px;
-}
-
-.signup-link-row a {
-    color: #fd5e53;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.signup-link-row a:hover {
-    text-decoration: underline;
-}
-</style>
