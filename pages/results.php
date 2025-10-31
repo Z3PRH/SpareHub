@@ -1,9 +1,18 @@
 <?php
 session_start();
+include '../database/db.php';
+
 if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
-    header("Location: admin.php");
+    header("Location: admindashboard.php");
     exit();
 }
+
+// Fetch all parts that are in stock
+$stmt = $conn->prepare("SELECT p.*, u.name as seller_name FROM parts p JOIN users u ON p.seller_id = u.user_id WHERE p.stock > 0");
+$stmt->execute();
+$result = $stmt->get_result();
+$parts = $result->fetch_all(MYSQLI_ASSOC);
+$total_parts = count($parts);
 ?>
 <html>
 <head>
@@ -86,89 +95,33 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
 
             <section class="results-grid">
                 <div class="results-header-bar">
-                    <span class="results-count" id="resultsCount">5 results found</span>
+                    <span class="results-count" id="resultsCount"><?php echo $total_parts; ?> results found</span>
                 </div>
 
                 <div class="products-grid">
-                    <div class="product-card" data-price="650" data-brand="Performance" data-condition="Refurbished"
-                        data-availability="In Stock" onclick="window.location.href='partdetails.php?id=1'">
+                    <?php foreach ($parts as $part): ?>
+                    <div class="product-card" 
+                        data-price="<?php echo $part['price']; ?>" 
+                        data-condition="New"
+                        data-availability="<?php echo $part['stock'] > 0 ? 'In Stock' : 'Out of Stock'; ?>" 
+                        onclick="window.location.href='partdetails.php?id=<?php echo $part['part_id']; ?>'">
                         <div class="product-image">
-                            <img src="../images/airfilter.png" alt="Air Filter">
+                            <img src="<?php echo htmlspecialchars($part['images']); ?>" alt="<?php echo htmlspecialchars($part['name']); ?>">
                         </div>
                         <div class="product-info">
-                            <div class="product-brand">Performance</div>
-                            <h3 class="product-name">Air Filter</h3>
+                            <div class="product-brand">Seller: <?php echo htmlspecialchars($part['seller_name']); ?></div>
+                            <h3 class="product-name"><?php echo htmlspecialchars($part['name']); ?></h3>
                             <div class="product-pricing">
-                                <span class="current-price">₹650</span>
+                                <span class="current-price">₹<?php echo number_format($part['price'], 2); ?></span>
                             </div>
-                            <div class="product-condition">Condition: Refurbished</div>
-                            <div class="product-shipping">In Stock</div>
+                            <div class="product-condition">Stock: <?php echo $part['stock']; ?> units</div>
+                            <div class="product-shipping"><?php echo $part['stock'] > 0 ? 'In Stock' : 'Out of Stock'; ?></div>
+                            <?php if (!empty($part['description'])): ?>
+                            <div class="product-description"><?php echo htmlspecialchars($part['description']); ?></div>
+                            <?php endif; ?>
                         </div>
                     </div>
-
-                    <div class="product-card" data-price="800" data-brand="OEM Parts" data-condition="New"
-                        data-availability="In Stock" onclick="window.location.href='partdetails.php?id=2'">
-                        <div class="product-image">
-                            <img src="../images/brakepad.png" alt="Brake Pads">
-                        </div>
-                        <div class="product-info">
-                            <div class="product-brand">OEM Parts</div>
-                            <h3 class="product-name">Brake Pads</h3>
-                            <div class="product-pricing">
-                                <span class="current-price">₹800</span>
-                            </div>
-                            <div class="product-condition">Condition: New</div>
-                            <div class="product-shipping">In Stock</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-price="2000" data-brand="Performance" data-condition="Refurbished"
-                        data-availability="In Stock" onclick="window.location.href='partdetails.php?id=3'">
-                        <div class="product-image">
-                            <img src="../images/clutchplate.png" alt="Clutchplate">
-                        </div>
-                        <div class="product-info">
-                            <div class="product-brand">Performance</div>
-                            <h3 class="product-name">Clutchplate</h3>
-                            <div class="product-pricing">
-                                <span class="current-price">₹2000</span>
-                            </div>
-                            <div class="product-condition">Condition: Refurbished</div>
-                            <div class="product-shipping">In Stock</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-price="400" data-brand="OEM Parts" data-condition="New"
-                        data-availability="In Stock" onclick="window.location.href='partdetails.php?id=4'">
-                        <div class="product-image">
-                            <img src="../images/sparkplug.png" alt="Spark Plugs">
-                        </div>
-                        <div class="product-info">
-                            <div class="product-brand">OEM Parts</div>
-                            <h3 class="product-name">Spark Plugs</h3>
-                            <div class="product-pricing">
-                                <span class="current-price">₹400</span>
-                            </div>
-                            <div class="product-condition">Condition: New</div>
-                            <div class="product-shipping">In Stock</div>
-                        </div>
-                    </div>
-
-                    <div class="product-card" data-price="1500" data-brand="Performance" data-condition="Refurbished"
-                        data-availability="In Stock" onclick="window.location.href='partdetails.php?id=5'">
-                        <div class="product-image">
-                            <img src="../images/headlight.png" alt="HeadLight">
-                        </div>
-                        <div class="product-info">
-                            <div class="product-brand">Performance</div>
-                            <h3 class="product-name">HeadLight</h3>
-                            <div class="product-pricing">
-                                <span class="current-price">₹1500</span>
-                            </div>
-                            <div class="product-condition">Condition: Refurbished</div>
-                            <div class="product-shipping">In Stock</div>
-                        </div>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
             </section>
         </main>
@@ -264,7 +217,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
             const products = document.querySelectorAll('.product-card');
             products.forEach(product => product.style.display = 'block');
 
-            updateCount(5);
+            updateCount(<?php echo $total_parts; ?>);
         }
 
             function updateCartCount() {

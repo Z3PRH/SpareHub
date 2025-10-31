@@ -2,7 +2,7 @@
 
 $host = "localhost";
 $user = "root";        
-$pass = "";            
+$pass = "ullivada";            
 $dbname = "sparehub";
 
 $conn = mysqli_connect($host, $user, $pass, $dbname);

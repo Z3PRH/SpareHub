@@ -22,7 +22,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['role'] !== 'admin') {
     <div class="sidebar">
         <div class="brand-logo">SpareHub</div>
         <nav class="nav-menu">
-            <a href="admin.php" class="nav-item"><i class="fas fa-boxes"></i> <span>Inventory</span></a>
+            <a href="request.php" class="nav-item"><i class="fas fa-boxes"></i> <span>request</span></a>
+            <a href="admindashboard.php" class="nav-item"><i class="fas fa-boxes"></i> <span>Inventory</span></a>
             <a href="analytics.php" class="nav-item active"><i class="fas fa-chart-line"></i> <span>Analytics</span></a>
             <a href="logout.php" class="nav-item logout"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
         </nav>
@@ -79,7 +80,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['role'] !== 'admin') {
         </section>
         <section class="quick-actions card">
             <h3>Quick Actions</h3>
-            <a href="admin.php" class="action-btn secondary"><i class="fas fa-arrow-left"></i> Back to Admin Panel</a>
+            <a href="admindashboard.php" class="action-btn secondary"><i class="fas fa-arrow-left"></i> Back to Admin Panel</a>
         </section>
     </div>
 </body>

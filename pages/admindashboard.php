@@ -8,11 +8,11 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['role'] !== 'admin') {
 }
 
 // Restrict admin pages to certain paths
-$allowedPages = ['admin.php', 'logout.php'];
+$allowedPages = ['admindashboard.php', 'logout.php'];
 $currentPage = basename($_SERVER['PHP_SELF']);
 
 if (!in_array($currentPage, $allowedPages)) {
-    header("Location: admin.php");
+    header("Location: admindashboard.php");
     exit();
 }
 ?>
@@ -78,7 +78,8 @@ foreach ($parts as $part) {
     <div class="sidebar">
         <div class="brand-logo">SpareHub</div>
         <nav class="nav-menu">
-            <a href="admin.php" class="nav-item active"><i class="fas fa-boxes"></i> <span>Inventory</span></a>
+            <a href="request.php" class="nav-item active"><i class="fas fa-boxes"></i> <span>Requests</span></a>
+            <a href="admindashboard.php" class="nav-item active"><i class="fas fa-boxes"></i> <span>Inventory</span></a>
             <a href="analytics.php" class="nav-item"><i class="fas fa-chart-line"></i> <span>Analytics</span></a>
             <a href="logout.php" class="nav-item logout"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
         </nav>
@@ -135,7 +136,7 @@ foreach ($parts as $part) {
                             <tr>
                                 <td><?php echo htmlspecialchars($part['name']); ?></td>
                                 <td>
-                                    <form method="POST" action="admin.php">
+                                    <form method="POST" action="admindashboard.php">
                                         <input type="hidden" name="id" value="<?php echo $part['part_id']; ?>">
                                         <input type="number" name="price" value="<?php echo $part['price']; ?>" step="0.01"
                                             min="0" style="width: 100px;">

@@ -47,10 +47,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
 
             if ($db_userid == 101) {
-                header("Location: ../pages/admin.php");
+                header("Location: ../pages/admindashboard.php");
             } elseif ($db_userid == 201) {
-                header("Location: ../pages/buyer.php");
-            } else {
+                header("Location: ../pages/buyerdashboard.php");
+            } 
+            elseif($db_userid == 301) {
+                header("Location: ../pages/sellerdashboard.php");
+            }
+            else {                
                 header("Location: ../pages/Homepage.php");
             }
             exit;

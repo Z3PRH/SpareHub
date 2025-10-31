@@ -11,7 +11,7 @@ if (isset($_GET['id'])) {
     $partId = intval($_GET['id']);
 
     // Prepare a statement to get part details, including 'model' and 'year'
-    $sql = "SELECT part_id, name, description, price, stock, images, brand, model, year, conditions FROM parts WHERE part_id = ?";
+    $sql = "SELECT part_id, name, description, price, stock, images, brand, model, year, status FROM parts WHERE part_id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $partId);
     $stmt->execute();

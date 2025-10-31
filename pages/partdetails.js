@@ -36,7 +36,7 @@ async function fetchPartDetails() {
             document.getElementById('part-brand').textContent = part.brand;
             document.getElementById('part-model').textContent = part.model;
             document.getElementById('part-year').textContent = part.year;
-            document.getElementById('part-condition').textContent = part.conditions;
+            document.getElementById('part-condition').textContent = part.status;
             document.getElementById('part-availability').textContent = part.stock > 0 ? "In Stock" : "Out of Stock";
             document.getElementById('part-description').textContent = part.description;
         } else {

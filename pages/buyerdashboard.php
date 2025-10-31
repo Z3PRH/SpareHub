@@ -11,13 +11,13 @@ $buyerName = isset($_SESSION['buyername']) ? $_SESSION['buyername'] : '';
 $buyerId = $_SESSION['user_id']; // Set on login from users.userid
 
 
-$mysqli = new mysqli('localhost', 'root', '', 'sparehub');
+$mysqli = new mysqli('localhost', 'root', 'ullivada', 'sparehub');
 if ($mysqli->connect_error) {
     die("DB error: " . $mysqli->connect_error);
 }
 
 // Fetch all orders for this buyer
-$sql = "SELECT order_id, order_date, status, total_amount, shipping_address, tracking_number FROM orders WHERE user_id = ?";
+$sql = "SELECT order_id, order_date, status, total_amount, shipping_address, tracking_number FROM orders WHERE buyer_id = ?";
 $stmt = $mysqli->prepare($sql);
 $stmt->bind_param("i", $buyerId);
 $stmt->execute();
@@ -68,7 +68,7 @@ function getStatusClass($status) {
             </div>
             <nav>
                 <a href="Homepage.php">🏠 Homepage</a>
-                <a href="buyer.php" class="active">📊 Dashboard</a>
+                <a href="buyerdashboard.php" class="active">📊 Dashboard</a>
                 <a href="buyerprofile.php">👤 Profile</a>
                 <a href="#settings">⚙️ Settings</a>
             </nav>
