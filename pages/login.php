@@ -46,15 +46,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit;
             }
 
-            if ($db_userid == 101) {
+            // Route by hundreds prefix: 100s = admin, 200s = buyer, 300s = seller
+            $prefix = (int) floor($db_userid / 100);
+            if ($prefix === 1) {
                 header("Location: ../pages/admindashboard.php");
-            } elseif ($db_userid == 201) {
+            } elseif ($prefix === 2) {
                 header("Location: ../pages/buyerdashboard.php");
-            } 
-            elseif($db_userid == 301) {
+            } elseif ($prefix === 3) {
                 header("Location: ../pages/sellerdashboard.php");
-            }
-            else {                
+            } else {
                 header("Location: ../pages/Homepage.php");
             }
             exit;

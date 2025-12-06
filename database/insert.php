@@ -2,7 +2,7 @@
 // DB config - update user/password if needed
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
-define('DB_PASS', 'ullivada');
+define('DB_PASS', '');
 define('DB_NAME', 'sparehub');
 
 $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);

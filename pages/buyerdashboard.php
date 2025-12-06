@@ -11,7 +11,7 @@ $buyerName = isset($_SESSION['buyername']) ? $_SESSION['buyername'] : '';
 $buyerId = $_SESSION['user_id']; // Set on login from users.userid
 
 
-$mysqli = new mysqli('localhost', 'root', 'ullivada', 'sparehub');
+$mysqli = new mysqli('localhost', 'root', '', 'sparehub');
 if ($mysqli->connect_error) {
     die("DB error: " . $mysqli->connect_error);
 }
@@ -70,7 +70,6 @@ function getStatusClass($status) {
                 <a href="Homepage.php">🏠 Homepage</a>
                 <a href="buyerdashboard.php" class="active">📊 Dashboard</a>
                 <a href="buyerprofile.php">👤 Profile</a>
-                <a href="#settings">⚙️ Settings</a>
             </nav>
             <div class="sidebar-footer">
                 <form method="POST" action="logout.php" style="width: 100;">

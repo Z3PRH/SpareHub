@@ -5,7 +5,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['role'] != 'admin') {
     exit();
 }
 
-$mysqli = new mysqli('localhost', 'root', 'ullivada', 'sparehub');
+$mysqli = new mysqli('localhost', 'root', '', 'sparehub');
 if ($mysqli->connect_error) {
     die("DB error: " . $mysqli->connect_error);
 }
@@ -14,12 +14,13 @@ if ($mysqli->connect_error) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $reqId = intval($_POST['req_id']);
     if (isset($_POST['approve'])) {
+        // mark request approved
         $stmt = $mysqli->prepare("UPDATE seller_requests SET status='approved', reviewed_time=NOW() WHERE request_id=?");
         $stmt->bind_param("i", $reqId);
         $stmt->execute();
         $stmt->close();
 
-        // Get user id from request
+        // get user id from request
         $stmt = $mysqli->prepare("SELECT user_id FROM seller_requests WHERE request_id=?");
         $stmt->bind_param("i", $reqId);
         $stmt->execute();
@@ -28,10 +29,62 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->close();
 
         if ($uid) {
-            $ustmt = $mysqli->prepare("UPDATE users SET role='seller' WHERE user_id=?");
-            $ustmt->bind_param("i", $uid);
-            $ustmt->execute();
-            $ustmt->close();
+            // compute a new user_id in 300+ range
+            $maxRes = $mysqli->query("SELECT MAX(user_id) FROM users WHERE user_id >= 300");
+            $maxRow = $maxRes ? $maxRes->fetch_row() : null;
+            $maxUid = intval($maxRow[0] ?? 0);
+            $newUid = ($maxUid < 300) ? 300 : ($maxUid + 1);
+
+            // If user is already in 300+ range, just update role
+            if ($uid >= 300) {
+                $ustmt = $mysqli->prepare("UPDATE users SET role='seller' WHERE user_id=?");
+                $ustmt->bind_param("i", $uid);
+                $ustmt->execute();
+                $ustmt->close();
+            } else {
+                // Move the user to the new id and update all tables that reference user_id
+                try {
+                    $mysqli->begin_transaction();
+
+                    // Temporarily disable foreign key checks to allow PK change across related tables
+                    $mysqli->query("SET FOREIGN_KEY_CHECKS=0");
+
+                    // Update users table (change PK and set role)
+                    $upd = $mysqli->prepare("UPDATE users SET user_id = ?, role = 'seller' WHERE user_id = ?");
+                    $upd->bind_param("ii", $newUid, $uid);
+                    $upd->execute();
+                    $upd->close();
+
+                    // Find all tables in this schema that have a user_id column (except users)
+                    $tblRes = $mysqli->query("
+                        SELECT TABLE_NAME 
+                        FROM INFORMATION_SCHEMA.COLUMNS 
+                        WHERE TABLE_SCHEMA = 'sparehub' 
+                          AND COLUMN_NAME = 'user_id' 
+                          AND TABLE_NAME != 'users'
+                    ");
+
+                    if ($tblRes) {
+                        while ($t = $tblRes->fetch_assoc()) {
+                            $tbl = $mysqli->real_escape_string($t['TABLE_NAME']);
+                            // Update referencing rows
+                            $mysqli->query("UPDATE `{$tbl}` SET user_id = {$newUid} WHERE user_id = {$uid}");
+                        }
+                    }
+
+                    // Re-enable fk checks and commit
+                    $mysqli->query("SET FOREIGN_KEY_CHECKS=1");
+                    $mysqli->commit();
+                } catch (Exception $e) {
+                    $mysqli->rollback();
+                    $mysqli->query("SET FOREIGN_KEY_CHECKS=1");
+                    // fallback: at least set role if id-change failed
+                    $ustmt = $mysqli->prepare("UPDATE users SET role='seller' WHERE user_id=?");
+                    $ustmt->bind_param("i", $uid);
+                    $ustmt->execute();
+                    $ustmt->close();
+                }
+            }
         }
     } elseif (isset($_POST['deny'])) {
         $reason = trim($_POST['denial_reason']);

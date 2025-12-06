@@ -1,8 +1,6 @@
 <?php
 session_start();
 if ($_SESSION['role'] === 'seller'): ?>
-    <a href="sellerdashboard.php">My Dashboard</a>
-    <a href="sellerparts.php">My Parts</a>
 <?php endif; 
 
 // Redirect to login if not authenticated or not a seller
@@ -23,7 +21,7 @@ if ($_SESSION['user_id'] != $seller_id) {
 $buyerName = isset($_SESSION['buyername']) ? $_SESSION['buyername'] : '';
 $buyerId = $_SESSION['user_id'];
 
-$mysqli = new mysqli('localhost', 'root', 'ullivada', 'sparehub');
+$mysqli = new mysqli('localhost', 'root', '', 'sparehub');
 if ($mysqli->connect_error) {
     die("DB error: " . $mysqli->connect_error);
 }

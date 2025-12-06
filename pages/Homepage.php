@@ -23,7 +23,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && isset($_SE
             <?php if ($showLogin): ?>
                 <a href="Login.html" class="login-btn">LogIn</a>
             <?php else: ?>
-                <a href="buyer.php" class="profile-link">Hello, <?php echo htmlspecialchars($buyerName); ?></a>
+                <a href="buyerdashboard.php" class="profile-link">Hello, <?php echo htmlspecialchars($buyerName); ?></a>
                 <a href="logout.php" class="logout-link">Logout</a>
             <?php endif; ?>
         </div>
