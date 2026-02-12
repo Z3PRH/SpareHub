@@ -5,12 +5,12 @@
   Feel Free to Refer my Project👍
 </html>
 
-Core Features
+### **Core Features**
 
-1. Frontend (Client-Side)
+#### **1. Frontend (Client-Side)**
 
-Role-Based UI & Navigation: Developed a modular interface using HTML,CSS,and JavaScript that features customized dashboards for Admins, Buyers, and Sellers, ensuring role-specific access to data and actions.
-Interactive Catalog & State Management: Engineered a dynamic search system to filter automotive parts by brand, model, and year, while leveraging LocalStorage to maintain persistent shopping cart data across browser sessions.
+* **Role-Based UI & Navigation:** Developed a modular interface using **HTML5**, **CSS3**, and **JavaScript** that features customized dashboards for **Admins**, **Buyers**, and **Sellers**, ensuring role-specific access to data and actions.
+* **Interactive Catalog & State Management:** Engineered a dynamic search system to filter automotive parts by brand, model, and year, while leveraging **LocalStorage** to maintain persistent shopping cart data across browser sessions.
 
 #### **2. Backend (Server-Side)**
 
